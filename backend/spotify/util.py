@@ -1,8 +1,13 @@
 from .models import SpotifyToken
 from django.utils import timezone
 from datetime import timedelta
-from .credentials import CLIENT_ID, CLIENT_SECRET
+from dotenv import load_dotenv
+from os import getenv
+from pathlib import Path
+load_dotenv(dotenv_path=Path('.env'))
 from requests import post, put, get
+CLIENT_ID = getenv('CLIENT_ID')
+CLIENT_SECRET = getenv('CLIENT_SECRET')
 
 
 BASE_URL = "https://api.spotify.com/v1/me/"

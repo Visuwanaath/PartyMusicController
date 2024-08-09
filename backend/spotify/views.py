@@ -1,6 +1,9 @@
 import datetime
 from django.utils import timezone
-from .credentials import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
+from dotenv import load_dotenv
+from os import getenv
+from pathlib import Path
+load_dotenv(dotenv_path=Path('.env'))
 from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
@@ -17,8 +20,8 @@ class AuthURL(APIView):
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
-            'redirect_uri': REDIRECT_URI,
-            'client_id': CLIENT_ID
+            'redirect_uri': getenv('REDIRECT_URI'),
+            'client_id': getenv('CLIENT_ID'),
         }).prepare().url
 
         return Response({'url': url}, status=status.HTTP_200_OK)
@@ -33,9 +36,9 @@ class getAndSaveSpotifyApiToken(APIView):
         response = post('https://accounts.spotify.com/api/token', data={
             'grant_type': 'authorization_code',
             'code': code,
-            'redirect_uri': REDIRECT_URI,
-            'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET
+            'redirect_uri': getenv('REDIRECT_URI'),
+            'client_id': getenv('CLIENT_ID'),
+            'client_secret': getenv('CLIENT_SECRET'),
         }).json()
 
         access_token = response.get('access_token')
