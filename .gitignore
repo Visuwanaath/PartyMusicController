@@ -13,7 +13,6 @@
 
 # Ignore environment variables file
 **/.env
-**/credentials.py
 # Ignore IDE specific files
 .vscode/
 .idea/
