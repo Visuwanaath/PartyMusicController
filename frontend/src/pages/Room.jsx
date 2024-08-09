@@ -23,6 +23,10 @@ const Room = () => {
   const getCurrentSong = async () => {
    try {
      const response = await api.get('/spotify/current-song');
+     if(response.data["Leave"] == "Room"){
+      navigate('/');
+    }
+    console.log(response.data);
      if (response.status === 200) {
        console.log(response.data);
        setSong(response.data);
@@ -37,7 +41,6 @@ const Room = () => {
       try {
         const response = await api.get(`/api/get-room`, { params: { code: roomCode } });
         if (response.status === 204) {
-          console.log("I AM NAVIGATING");
           navigate('/');
         } else if(response.status === 200) {
           const data = response.data;
@@ -69,7 +72,11 @@ const Room = () => {
     getRoomDetails();
     const interval = setInterval(getCurrentSong, 10000);
     getCurrentSong();
-    return () => clearInterval(interval);
+    //const interval2 = setInterval(getRoomDetails, 120*1000);
+    return () => {
+      clearInterval(interval);
+      //clearInterval(interval2);
+    }
   }, [roomCode, navigate]);
 
   const leaveButtonPressed = async () => {
@@ -125,7 +132,7 @@ const Room = () => {
           Code: {roomCode}
         </Text>
       </Grid.Col>
-      <MusicPlayer {...song} musicPlayerAction={getCurrentSong}/>
+      <MusicPlayer {...song} musicPlayerAction={getCurrentSong} isHost={isHost}/>
       {isHost ? renderSettingsButton() : null}
       {showSettings && renderSettings()}
       <Grid.Col span={12} align="center">

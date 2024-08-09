@@ -11,10 +11,19 @@ import {
 import { IconPlayerPlay, IconPlayerPause, IconPlayerSkipForward } from '@tabler/icons-react';
 import api from '../api';
 
-const MusicPlayer = ({ image_url, title, artist, is_playing, time, duration, votes, votes_required,musicPlayerAction }) => {
+const MusicPlayer = ({ image_url, title, artist, is_playing, time, duration, votes, votes_required,musicPlayerAction , guest_can_pause, isHost= false}) => {
   const hasSong = title && artist;
-  const songProgress = hasSong && duration > 0 ? (time / duration) * 100 : 0;
-
+  let songProgress = hasSong && duration > 0 ? (time / duration) * 100 : 0;
+  console.log("Time: ", time);
+  console.log("Duration: ", duration);
+  let canPauseOrPlay = guest_can_pause || isHost;
+  // const increaseSongProgress = () => {
+  //   if (hasSong && is_playing) {
+  //     time += 1000;
+  //     songProgress = hasSong && duration > 0 ? (time / duration) * 100 : 0;
+  //   }
+  // }
+  // setInterval(increaseSongProgress, 1000);
   const skipSong = async () => {
     try {
       await api.post("/spotify/skip");
@@ -26,6 +35,7 @@ const MusicPlayer = ({ image_url, title, artist, is_playing, time, duration, vot
 
   const pauseSong = async () => {
     try {
+      if(!canPauseOrPlay) return;
       await api.put("/spotify/pause");
       musicPlayerAction();
     } catch (error) {
@@ -35,6 +45,7 @@ const MusicPlayer = ({ image_url, title, artist, is_playing, time, duration, vot
 
   const playSong = async () => {
     try {
+      if(!canPauseOrPlay) return;
       await api.put("/spotify/play");
       musicPlayerAction();
     } catch (error) {
@@ -66,6 +77,7 @@ const MusicPlayer = ({ image_url, title, artist, is_playing, time, duration, vot
                 onClick={() => {
                   is_playing ? pauseSong() : playSong();
                 }}
+                {...(canPauseOrPlay ? { disabled: false } : { disabled: true })}
                 size="lg"
               >
                 {is_playing ? <IconPlayerPause size={24} /> : <IconPlayerPlay size={24} />}

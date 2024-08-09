@@ -10,24 +10,18 @@ const SpotifyRedirect = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     const error = urlParams.get('error');
-
     const fetchData = async () => {
       try {
-        // Send a POST request to your Django backend
         const response = await api.post('/spotify/redirect', { code, error });
-        
         if (response.status === 200) {
-          // Handle successful response
           console.log(response.data);
-          //navigate('/'); // Redirect to home or another page
+          navigate('/');
         } else {
-          // Handle non-200 responses
           console.error(response.data);
-         // navigate('/error'); // Redirect to an error page or handle the error
+          navigate('/error');
         }
       } catch (err) {
         console.error(err);
-        //navigate('/error'); // Redirect to an error page or handle the error
       }
     };
 

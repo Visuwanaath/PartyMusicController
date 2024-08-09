@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Button, Group, Modal, Text, Title, Center } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import RoomSetupModal from '../components/RoomSetupModal';
-import RoomJoinModal from '../components/RoomJoinModal'; // Import the RoomJoinModal
-import api from '../api'; // Import your API setup
+import RoomJoinModal from '../components/RoomJoinModal';
+import api from '../api';
 
 const Home = () => {
   const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [roomCode, setRoomCode] = useState(null);
   const [roomSetupModalOpen, setRoomSetupModalOpen] = useState(false);
-  const [roomJoinModalOpen, setRoomJoinModalOpen] = useState(false); // State for RoomJoinModal
-  const [existingRoom, setExistingRoom] = useState(null); // State to hold existing room details if any
+  const [roomJoinModalOpen, setRoomJoinModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const openInfoModal = () => setInfoModalOpen(true);
@@ -25,7 +24,6 @@ const Home = () => {
       const response = await api.get('/api/user-in-room');
       if (response.data && response.data.code) {
         setRoomCode(response.data.code);
-        setExistingRoom(response.data); // Set existing room details
         navigate(`/room/${response.data.code}`);
       }
     } catch (error) {

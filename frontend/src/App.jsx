@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from "./pages/Home.jsx"
 import Room from './pages/Room';
 import SpotifyRedirect from './pages/SpotifyRedirect.jsx';
-// import NotFound from './pages/NotFound.jsx'
 import SearchSongs from './components/SearchSongs.jsx'
 import MusicPlayer from './components/MusicPlayer.jsx'
 import '@mantine/core/styles.css';

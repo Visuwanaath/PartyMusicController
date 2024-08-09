@@ -27,9 +27,6 @@ const SearchSongs = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* <Button onClick={open} style={{ position: 'absolute', right: 0, top: 0, margin: '1rem' }}>
-        Search Songs
-      </Button> */}
       <Drawer
         opened={isOpen}
         onClose={onClose}
