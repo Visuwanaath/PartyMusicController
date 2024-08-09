@@ -1,0 +1,23 @@
+# Ignore Python virtual environment files
+/venv/
+/env/
+/.venv/
+
+# Ignore Django generated files
+*/__pycache__/
+*.sqlite3
+*.pyc
+
+# Ignore Node.js dependencies
+/frontend/node_modules/
+
+# Ignore environment variables file
+**/.env
+**/credentials.py
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
