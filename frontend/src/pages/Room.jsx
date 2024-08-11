@@ -64,6 +64,8 @@ const Room = () => {
         if (!data.status) {
           const authUrlResponse = await api.get('/spotify/get-auth-url');
           window.location.replace(authUrlResponse.data.url);
+        }else{
+          getCurrentSong();
         }
       } catch (error) {
         console.error('Error authenticating Spotify:', error);
@@ -71,7 +73,7 @@ const Room = () => {
     };
     getRoomDetails();
     const interval = setInterval(getCurrentSong, 10000);
-    getCurrentSong();
+    // getCurrentSong();
     //const interval2 = setInterval(getRoomDetails, 120*1000);
     return () => {
       clearInterval(interval);
