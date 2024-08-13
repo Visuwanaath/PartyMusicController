@@ -63,6 +63,8 @@ class IsAuthenticated(APIView):
 
 class CurrentSong(APIView):
     def get(self, request, format=None):
+        if(not request.session.exists(request.session.session_key)):
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
         room_code = self.request.session.get('room_code')
         room = Room.objects.filter(code=room_code)
         if room.exists():
@@ -170,6 +172,12 @@ class SkipSong(APIView):
 
 class getUserMusicQueue(APIView):
     def get(self, request, format=None):
+        if(not request.session.exists(request.session.session_key)):
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+        is_authenticated = is_spotify_authenticated(
+            self.request.session.session_key)
+        if not is_authenticated:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
         room_code = self.request.session.get('room_code')
         room = Room.objects.filter(code=room_code)
         if room.exists():

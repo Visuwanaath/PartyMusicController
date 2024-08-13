@@ -73,7 +73,7 @@ const Room = () => {
     };
     getRoomDetails();
     const interval = setInterval(getCurrentSong, 10000);
-    // getCurrentSong();
+    getCurrentSong();
     //const interval2 = setInterval(getRoomDetails, 120*1000);
     return () => {
       clearInterval(interval);

@@ -1,0 +1,36 @@
+# General files
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md
+
+# Node.js dependencies
+frontend/node_modules
+frontend/.npm
+frontend/.cache
+frontend/.eslintcache
+frontend/dist
+
+# Python dependencies
+backend/__pycache__
+backend/*.pyc
+backend/*.pyo
+backend/env
+backend/venv
+
+# Environment files
+*.env
+
+# Local development files
+.vscode
+.idea
+*.log
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# System files
+*.bak
+*.tmp
