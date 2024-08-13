@@ -76,6 +76,10 @@ class CurrentSong(APIView):
                 pass
             return Response({"Leave":"Room"}, status=status.HTTP_208_ALREADY_REPORTED)
         host = room.host
+        is_authenticated = is_spotify_authenticated(
+            host)
+        if not is_authenticated:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
         last_song_update = room.last_song_update
         getDataFromSpotfiy = True
         if(last_song_update != None):
@@ -174,10 +178,6 @@ class getUserMusicQueue(APIView):
     def get(self, request, format=None):
         if(not request.session.exists(request.session.session_key)):
             return Response({}, status=status.HTTP_404_NOT_FOUND)
-        is_authenticated = is_spotify_authenticated(
-            self.request.session.session_key)
-        if not is_authenticated:
-            return Response({}, status=status.HTTP_404_NOT_FOUND)
         room_code = self.request.session.get('room_code')
         room = Room.objects.filter(code=room_code)
         if room.exists():
@@ -185,6 +185,10 @@ class getUserMusicQueue(APIView):
         else:
             return Response({}, status=status.HTTP_404_NOT_FOUND)
         host = room.host
+        is_authenticated = is_spotify_authenticated(
+            room.host)
+        if not is_authenticated:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
         endpoint = "player/queue"
         response = execute_spotify_api_request(host, endpoint)
         if 'error' in response:
