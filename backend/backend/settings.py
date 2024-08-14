@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5gimbn_l5)-t3vv#99jpuo_+h9r(b+rv$**4&c$u6(bw#hbw&z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -89,8 +89,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-print("TESTING GET ENV")
-print(getenv('PGDATABASE'))
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',

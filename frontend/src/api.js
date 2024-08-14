@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+  baseURL: "http://localhost:8000",
   withCredentials: true,
 });
 export default api;
